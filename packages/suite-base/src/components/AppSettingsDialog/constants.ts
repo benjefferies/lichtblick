@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import { AppSettingsSectionKey } from "@lichtblick/suite-base/components/AppSettingsDialog/types";
-import { LICHTBLICK_DOCUMENTATION_LINK } from "@lichtblick/suite-base/constants/documentation";
 
 export const APP_SETTINGS_ABOUT_ITEMS = new Map<
   AppSettingsSectionKey,
@@ -17,8 +16,8 @@ export const APP_SETTINGS_ABOUT_ITEMS = new Map<
       subheader: "Documentation",
       links: [
         {
-          title: "Check out our documentation",
-          url: LICHTBLICK_DOCUMENTATION_LINK,
+          title: "Visit Prolific",
+          url: "https://www.prolific.com/",
         },
       ],
     },

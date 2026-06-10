@@ -11,6 +11,11 @@ import { OverrideComponentReturn } from "../types";
 
 export const MuiTabs: OverrideComponentReturn<"MuiTabs"> = {
   styleOverrides: {
+    root: ({ theme }) => ({
+      [`& .${tabsClasses.indicator}`]: {
+        backgroundColor: theme.palette.primary.main,
+      },
+    }),
     vertical: {
       [`.${tabsClasses.indicator}`]: {
         left: 0,

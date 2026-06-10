@@ -65,9 +65,12 @@ const useStyles = makeStyles<{ debugDragRegion?: boolean }, "avatar">()((
     logo: {
       padding: theme.spacing(0.75, 0.5),
       fontSize: "2rem",
-      color: theme.palette.appBar.primary,
+      color: theme.palette.common.white,
       borderRadius: 0,
 
+      "& .MuiSvgIcon-root": {
+        color: theme.palette.common.white,
+      },
       "svg:not(.MuiSvgIcon-root)": {
         fontSize: "1em",
       },
@@ -77,6 +80,10 @@ const useStyles = makeStyles<{ debugDragRegion?: boolean }, "avatar">()((
       "&.Mui-selected": {
         backgroundColor: theme.palette.appBar.primary,
         color: theme.palette.common.white,
+
+        "& .MuiSvgIcon-root": {
+          color: theme.palette.common.white,
+        },
       },
       "&.Mui-disabled": {
         color: "currentColor",
@@ -219,7 +226,7 @@ export function AppBar(props: AppBarProps): React.JSX.Element {
                   setAppMenuEl(event.currentTarget);
                 }}
               >
-                <LichtblickLogo fontSize="inherit" color="inherit" />
+                <LichtblickLogo fontSize="inherit" variant="inverse" />
                 <ChevronDown12Regular
                   className={classes.dropDownIcon}
                   primaryFill={theme.palette.common.white}

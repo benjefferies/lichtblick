@@ -19,7 +19,8 @@ interface CustomTypographyOptions {
 // ends up crashing in DWriteFontFamily::GetFirstMatchingFont() or DWriteFont::Create().
 //
 // https://bugs.chromium.org/p/chromium/issues/detail?id=1261577
-export const fontSansSerif = "'Inter'";
+export const fontSansSerif =
+  "'New Hero', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif";
 export const fontMonospace = "'IBM Plex Mono'";
 
 export const fontFeatureSettings = [

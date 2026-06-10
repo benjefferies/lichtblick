@@ -1,4 +1,7 @@
 {
+  "installCommand": "corepack enable yarn && corepack yarn install --immutable",
+  "buildCommand": "corepack yarn web:build:prod",
+  "outputDirectory": "web/.webpack",
   "github": {
     "silent": true
   },

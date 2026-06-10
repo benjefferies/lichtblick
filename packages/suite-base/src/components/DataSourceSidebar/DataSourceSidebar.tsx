@@ -62,14 +62,15 @@ const StyledTab = muiStyled(Tab)(({ theme }) => ({
   },
 }));
 
-const StyledTabs = muiStyled(Tabs)({
+const StyledTabs = muiStyled(Tabs)(({ theme }) => ({
   minHeight: "auto",
 
   ".MuiTabs-indicator": {
     transform: "scaleX(0.5)",
     height: 2,
+    backgroundColor: theme.palette.primary.main,
   },
-});
+}));
 
 const AlertCount = muiStyled("div")(({ theme }) => ({
   backgroundColor: theme.palette.error.main,

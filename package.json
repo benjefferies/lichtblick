@@ -3,19 +3,19 @@
   "version": "1.25.1",
   "license": "MPL-2.0",
   "private": true,
-  "productName": "Lichtblick",
-  "description": "Core components of Lichtblick",
-  "productDescription": "Lichtblick Suite",
+  "productName": "Prolific",
+  "description": "Core components of Prolific",
+  "productDescription": "Prolific",
   "packageManager": "yarn@3.6.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/lichtblick-suite/lichtblick.git"
   },
   "author": {
-    "name": "Lichtblick",
-    "email": "lichtblick@bmwgroup.com"
+    "name": "Prolific",
+    "email": "hello@prolific.com"
   },
-  "homepage": "https://github.com/lichtblick-suite",
+  "homepage": "https://www.prolific.com/",
   "engines": {
     "node": ">=20"
   },

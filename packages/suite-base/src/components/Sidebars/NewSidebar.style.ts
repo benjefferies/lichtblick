@@ -38,6 +38,7 @@ export const useStyles = makeStyles()((theme) => ({
     ".MuiTabs-indicator": {
       transform: "scaleX(0.5)",
       height: 2,
+      backgroundColor: theme.palette.primary.main,
     },
     ".MuiTab-root": {
       minHeight: 30,
