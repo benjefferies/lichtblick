@@ -298,6 +298,17 @@ export function ThreeDeeRender(props: Readonly<ThreeDeeRenderProps>): React.JSX.
   }, []);
   useRendererEvent("clearPreloadBuffer", handleClearPreloadBuffer, renderer);
 
+  const [imageDisplayed, setImageDisplayed] = useState(false);
+  const updateImageDisplayed = useCallback((curRenderer: IRenderer) => {
+    setImageDisplayed(curRenderer.hasImageDisplayed());
+  }, []);
+  useRendererEvent("imageDisplayedChanged", updateImageDisplayed, renderer);
+  useEffect(() => {
+    if (renderer) {
+      setImageDisplayed(renderer.hasImageDisplayed());
+    }
+  }, [renderer]);
+
   // Log LayerErrors to PanelLogs
   const handleLayerErrorUpdate = useCallback(
     (path: Path, _errorId: string, errorMessage: string) => {
@@ -938,7 +949,9 @@ export function ThreeDeeRender(props: Readonly<ThreeDeeRenderProps>): React.JSX.
             position: "absolute",
             top: 0,
             left: 0,
-            ...((measureActive || publishActive) && { cursor: "crosshair" }),
+            ...((measureActive ||
+              publishActive ||
+              (interfaceMode === "image" && imageDisplayed)) && { cursor: "crosshair" }),
           }}
         />
         {isLoadingTransforms && config.scene.enableStats === true && (

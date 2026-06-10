@@ -78,6 +78,7 @@ import { AppEvent } from "@lichtblick/suite-base/services/IAnalytics";
 import { downloadFiles } from "@lichtblick/suite-base/util/download";
 
 import { ImageModeCamera } from "./ImageModeCamera";
+import { ImagePixelCoords, screenToImagePixel } from "./screenToImagePixel";
 import { IMessageHandler, MessageHandler, MessageRenderState } from "./MessageHandler";
 import { ImageAnnotations } from "./annotations/ImageAnnotations";
 import type {
@@ -216,6 +217,37 @@ export class ImageMode
     return this.#hasModifiedView;
   }
 
+  public hasImageDisplayed(): boolean {
+    const renderable = this.imageRenderable;
+    return (
+      renderable?.getDecodedImage() != undefined &&
+      renderable.userData.mesh != undefined &&
+      this.#cameraModel?.model != undefined
+    );
+  }
+
+  public getImagePixelAtScreen(screenCoords: THREE.Vector2): ImagePixelCoords | undefined {
+    const renderable = this.imageRenderable;
+    const mesh = renderable?.userData.mesh;
+    const cameraModel = this.#cameraModel?.model;
+    if (!renderable?.getDecodedImage() || !mesh || !cameraModel) {
+      return undefined;
+    }
+
+    return screenToImagePixel(
+      screenCoords,
+      this.#camera,
+      this.renderer.input.canvasSize,
+      mesh,
+      cameraModel.width,
+      cameraModel.height,
+    );
+  }
+
+  #notifyImageDisplayedChanged(): void {
+    this.renderer.emit("imageDisplayedChanged", this.renderer);
+  }
+
   public resetViewModifications(): void {
     this.#hasModifiedView = false;
     this.#camera.resetModifications();
@@ -324,6 +356,7 @@ export class ImageMode
     this.imageRenderable?.dispose();
     this.imageRenderable?.removeFromParent();
     this.imageRenderable = undefined;
+    this.#notifyImageDisplayedChanged();
   }
 
   /**
@@ -727,6 +760,7 @@ export class ImageMode
         this.#updateFallbackCameraModel(renderable);
         this.#updateViewAndRenderables();
       }
+      this.#notifyImageDisplayedChanged();
     });
   };
 
@@ -887,6 +921,7 @@ export class ImageMode
         imageRenderable.userData.cameraInfo = this.#cameraModel.info;
         imageRenderable.setCameraModel(this.#cameraModel.model);
         imageRenderable.update();
+        this.#notifyImageDisplayedChanged();
       }
     }
   }

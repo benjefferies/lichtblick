@@ -65,6 +65,12 @@ export type RendererEvents = {
     renderer: IRenderer,
   ) => void;
   hoverMoved: (cursorCoords: { x: number; y: number }, renderer: IRenderer) => void;
+  imageCursorPixelMoved: (
+    pixel: { x: number; y: number } | undefined,
+    screenCoords: { x: number; y: number },
+    renderer: IRenderer,
+  ) => void;
+  imageDisplayedChanged: (renderer: IRenderer) => void;
   parametersChange: (
     parameters: ReadonlyMap<string, ParameterValue> | undefined,
     renderer: IRenderer,
@@ -363,6 +369,15 @@ export interface IRenderer extends EventEmitter<RendererEvents> {
   canResetView(): boolean;
   /** Reset any manual view modifications (image mode only). */
   resetView(): void;
+
+  /** Whether an image or video frame is currently displayed (image mode only). */
+  hasImageDisplayed(): boolean;
+
+  /**
+   * Returns image pixel coordinates for a canvas screen position (image mode only).
+   * Returns undefined when the cursor is outside the image or no image is displayed.
+   */
+  getImagePixelAtScreen(screenCoords: { x: number; y: number }): { x: number; y: number } | undefined;
 
   setSelectedRenderable(selection: PickedRenderable | undefined): void;
 

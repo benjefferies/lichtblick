@@ -356,6 +356,11 @@ export class Renderer extends EventEmitter<RendererEvents> implements IRenderer 
       isMouseDown = false;
     });
     this.input.on("mousemove", (cursorCoords) => {
+      if (this.interfaceMode === "image") {
+        const pixel = this.getImagePixelAtScreen(cursorCoords);
+        this.emit("imageCursorPixelMoved", pixel, cursorCoords, this);
+      }
+
       if (isMouseDown || !this.#pickingEnabled) {
         return;
       }
@@ -1028,6 +1033,19 @@ export class Renderer extends EventEmitter<RendererEvents> implements IRenderer 
   public resetView(): void {
     this.#imageModeExtension?.resetViewModifications();
     this.queueAnimationFrame();
+  }
+
+  public hasImageDisplayed(): boolean {
+    return this.#imageModeExtension?.hasImageDisplayed() ?? false;
+  }
+
+  public getImagePixelAtScreen(screenCoords: {
+    x: number;
+    y: number;
+  }): { x: number; y: number } | undefined {
+    return this.#imageModeExtension?.getImagePixelAtScreen(
+      tempVec2.set(screenCoords.x, screenCoords.y),
+    );
   }
 
   public setSelectedRenderable(selection: PickedRenderable | undefined): void {

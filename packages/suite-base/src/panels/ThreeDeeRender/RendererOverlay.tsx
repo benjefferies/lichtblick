@@ -33,6 +33,7 @@ import PublishPointIcon from "@lichtblick/suite-base/components/PublishPointIcon
 import PublishPoseEstimateIcon from "@lichtblick/suite-base/components/PublishPoseEstimateIcon";
 import { usePanelMousePresence } from "@lichtblick/suite-base/hooks/usePanelMousePresence";
 import { HUD } from "@lichtblick/suite-base/panels/ThreeDeeRender/HUD";
+import { ImageCursorOverlay } from "@lichtblick/suite-base/panels/ThreeDeeRender/ImageCursorOverlay";
 import { customTypography } from "@lichtblick/theme";
 
 import { InteractionContextMenu, Interactions, SelectionObject, TabType } from "./Interactions";
@@ -523,6 +524,7 @@ export function RendererOverlay(props: Props): React.JSX.Element {
         />
       )}
       <HUD renderer={renderer} />
+      {props.interfaceMode === "image" && <ImageCursorOverlay canvas={props.canvas} />}
       <HoverTooltip entities={hoveredEntities} position={hoverPosition} canvas={props.canvas} />
       {stats}
       {resetViewButton}
